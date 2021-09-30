@@ -5,6 +5,7 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
+const uri = 'http://localhost:99/call'
 const token = 'RGAPI-f7c12650-7088-4c19-a634-a9398423afd7'
 
 export default new Vuex.Store({
@@ -35,6 +36,20 @@ export default new Vuex.Store({
           e.userInfo = payload.data
         }
       })
+    },
+    setMatchInfo (state, payload) {
+      state.infoList.forEach(e => {
+        if (e.userName === payload.name) {
+          e.userInfo = payload.data
+        }
+      })
+    },
+    setTimeline (state, payload) {
+      state.infoList.forEach(e => {
+        if (e.userName === payload.name) {
+          e.userInfo = payload.data
+        }
+      })
     }
   },
   actions: {
@@ -52,7 +67,7 @@ export default new Vuex.Store({
     },
     getUserInfo ({ commit, state }, name) {
       axios
-        .get('http://localhost:99/call', {
+        .get(uri, {
           params: {
             uri: `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}`,
             token: token
@@ -68,49 +83,55 @@ export default new Vuex.Store({
         })
     },
     getMatchIdList ({ commit, state }, name) {
-      let puuid = ''
       state.infoList.forEach(e => {
         if (e.userName === name) {
-          puuid = e.userInfo.puuid
+          axios
+            .get(uri, {
+              params: {
+                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?start=0&count=20`,
+                token: token
+              }
+            })
+            .then(response => {
+              response.data.forEach(matchId => {
+                this.dispatch('getMatchInfo', { name: name, matchId: matchId})
+                this.dispatch('getMatchTimeLine', { name: name, matchId: matchId})
+              })
+            })
+            .catch(error => {
+              commit('remove', name)
+              console.log(error)
+            })
         }
       })
+    },
+    getMatchInfo ({ commit, state }, payload) {
       axios
-        .get('http://localhost:99/call', {
+        .get(uri, {
           params: {
-            uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${puuid}/ids?start=0&count=20`,
+            uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${payload.matchId}`,
             token: token
           }
         })
         .then(response => {
-          console.log(response.data)
-          // this.dispatch('getMatchInfo', name)
+          commit('setMatchInfo', { name: payload.name, data: response.data })
         })
         .catch(error => {
-          commit('remove', name)
-          console.log(error)
-        })
-    },
-    getMatchInfo ({ commit, state }, name) {
-      axios
-        .get(`http://localhost:99/call?uri=lol/summoner/v4/summoners/by-name/${name}&token=RGAPI-f7c12650-7088-4c19-a634-a9398423afd7`)
-        .then(response => {
-          commit('setUserInfo', { name: name, data: response.data })
-          this.dispatch('getMatchId', name)
-        })
-        .catch(error => {
-          commit('remove', name)
           console.log(error)
         })
     },
     getMatchTimeline ({ commit, state }, name) {
       axios
-        .get(`http://localhost:99/call?uri=lol/summoner/v4/summoners/by-name/${name}&token=RGAPI-f7c12650-7088-4c19-a634-a9398423afd7`)
+        .get(uri, {
+          params: {
+            uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}/timeline`,
+            token: token
+          }
+        })
         .then(response => {
-          commit('setUserInfo', { name: name, data: response.data })
-          this.dispatch('getMatchId', name)
+          commit('setMatchInfo', { name: payload.name, data: response.data })
         })
         .catch(error => {
-          commit('remove', name)
           console.log(error)
         })
     }
