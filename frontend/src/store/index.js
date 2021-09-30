@@ -17,10 +17,7 @@ export default new Vuex.Store({
       state.infoList.push({
         userName: payload,
         userInfo: {},
-        matchList: {
-          matchInfoList: [],
-          matchTimelineList: []
-        }
+        matchList: []
       })
     },
     remove (state, payload) {
@@ -39,15 +36,16 @@ export default new Vuex.Store({
     },
     setMatchInfo (state, payload) {
       state.infoList.forEach(e => {
+        debugger
         if (e.userName === payload.name) {
-          e.userInfo = payload.data
+          e.userInfo.matchList.matchInfoList.push(payload.data)
         }
       })
     },
     setTimeline (state, payload) {
       state.infoList.forEach(e => {
         if (e.userName === payload.name) {
-          e.userInfo = payload.data
+          e.userInfo.matchList.matchTimelineList.push(payload.data)
         }
       })
     }
@@ -94,8 +92,8 @@ export default new Vuex.Store({
             })
             .then(response => {
               response.data.forEach(matchId => {
-                this.dispatch('getMatchInfo', { name: name, matchId: matchId})
-                this.dispatch('getMatchTimeLine', { name: name, matchId: matchId})
+                this.dispatch('getMatchInfo', { name: name, matchId: matchId })
+                this.dispatch('getMatchTimeLine', { name: name, matchId: matchId })
               })
             })
             .catch(error => {
@@ -120,11 +118,11 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    getMatchTimeline ({ commit, state }, name) {
+    getMatchTimeline ({ commit, state }, payload) {
       axios
         .get(uri, {
           params: {
-            uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${matchId}/timeline`,
+            uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${payload.matchId}/timeline`,
             token: token
           }
         })
