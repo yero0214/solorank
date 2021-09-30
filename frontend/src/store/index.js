@@ -34,18 +34,37 @@ export default new Vuex.Store({
         }
       })
     },
-    setMatchInfo (state, payload) {
+    setMatchList (state, payload) {
       state.infoList.forEach(e => {
         debugger
         if (e.userName === payload.name) {
-          e.userInfo.matchList.matchInfoList.push(payload.data)
+          e.matchList.push({
+            matchId: payload.matchId,
+            matchInfo: {},
+            matchTimeline: {}
+          })
+        }
+      })
+    },
+    setMatchInfo (state, payload) {
+      state.infoList.forEach(e => {
+        if (e.userName === payload.name) {
+          e.matchList.forEach(f => {
+            if (f.matchId === payload.matchId) {
+              f.matchInfo = payload.data
+            }
+          })
         }
       })
     },
     setTimeline (state, payload) {
       state.infoList.forEach(e => {
         if (e.userName === payload.name) {
-          e.userInfo.matchList.matchTimelineList.push(payload.data)
+          e.matchList.forEach(f => {
+            if (f.matchId === payload.matchId) {
+              f.matchInfo = payload.data
+            }
+          })
         }
       })
     }
@@ -92,6 +111,7 @@ export default new Vuex.Store({
             })
             .then(response => {
               response.data.forEach(matchId => {
+                commit('setMatchList', { name: name, matchId: matchId})
                 this.dispatch('getMatchInfo', { name: name, matchId: matchId })
                 this.dispatch('getMatchTimeLine', { name: name, matchId: matchId })
               })
@@ -112,7 +132,7 @@ export default new Vuex.Store({
           }
         })
         .then(response => {
-          commit('setMatchInfo', { name: payload.name, data: response.data })
+          commit('setMatchInfo', { name: payload.name, matchId: payload.matchId, data: response.data })
         })
         .catch(error => {
           console.log(error)
@@ -127,7 +147,7 @@ export default new Vuex.Store({
           }
         })
         .then(response => {
-          commit('setMatchInfo', { name: payload.name, data: response.data })
+          commit('setMatchInfo', { name: payload.name matchId: payload.matchId, data: response.data })
         })
         .catch(error => {
           console.log(error)
