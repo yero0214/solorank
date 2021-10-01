@@ -63,7 +63,10 @@ public class Config {
                 )
             )
             .exchangeStrategies(exchangeStrategies)            
-            .defaultHeader("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.3")
+            .defaultHeader("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36 Edg/93.0.961.52")
+            .defaultHeader("Accept-Language", "ko,en;q=0.9,en-US;q=0.8")
+            .defaultHeader("Accept-Charset", "application/x-www-form-urlencoded; charset=UTF-8")
+            .defaultHeader("Origin", "https://developer.riotgames.com")
             // .defaultCookie("httpclient-type", "webclient")
             .build();
     }
