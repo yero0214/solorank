@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <ul class="file_add_list">
+  <div id="list">
+    <ul>
         <li v-for="user in userList" :key="user.userName">
           <span @click="setSelected(user.userName)">{{user.userInfo.name}}</span>
           <span @click="remove(user.userName)">X</span>

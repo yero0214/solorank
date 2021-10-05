@@ -111,7 +111,6 @@ export default new Vuex.Store({
     setMatchList (state, payload) {
       state.userList.forEach(e => {
         if (e.userName === payload.name) {
-          e.matchList = []
           e.matchList.push({
             matchId: payload.matchId,
             matchInfo: {},
@@ -197,10 +196,11 @@ export default new Vuex.Store({
     getMatchIdList ({ commit, state }, name) {
       state.userList.forEach(e => {
         if (e.userName === name) {
+          e.matchList = []
           axios
             .get(uri, {
               params: {
-                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=5`,
+                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=20`,
                 token: yero0214
               }
             })

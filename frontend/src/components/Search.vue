@@ -1,5 +1,5 @@
 <template>
-  <div class="Search">
+  <div id="search">
     <input type="text" v-model="name" @keyup.enter="search">
     <button @click="search">Search</button>
   </div>
