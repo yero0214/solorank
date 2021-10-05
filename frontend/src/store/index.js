@@ -6,8 +6,8 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const uri = 'http://localhost:99/call'
-const yero0214 = 'RGAPI-1b183639-e7ce-47cb-9382-e1e7c06698ce'
-const haga4214 = 'RGAPI-48944230-0798-4d48-9a47-5ce9cbf3a89c'
+const yero0214 = 'RGAPI-a1f4fc77-162f-4a97-b683-160fb3f446fe'
+const haga4214 = 'RGAPI-1c0de3e1-635a-4954-882b-b464bbc0741a'
 
 const func = {
   setCookie (name, value, type, time) {

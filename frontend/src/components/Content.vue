@@ -1,6 +1,6 @@
 <template>
   <div>
-      {{selected.userInfo.name}}
+      <span>{{selected.userInfo.name}}</span>
       <button @click="search">Update</button>
   </div>
 </template>
@@ -28,6 +28,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+button {
+  margin-left: 5px;
+}
 </style>
