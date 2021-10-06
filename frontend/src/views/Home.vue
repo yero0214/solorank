@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home">
     <Search/>
     <List/>
     <Content/>
@@ -26,3 +26,6 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+</style>

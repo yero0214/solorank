@@ -16,6 +16,9 @@ export default {
 ul {
     list-style-type: none;
 }
+body {
+  background-color: rgb(247, 247, 247);
+}
 #search {
   position: fixed;
 }

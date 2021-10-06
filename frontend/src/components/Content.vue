@@ -19,7 +19,7 @@
         </div>
       </div>
       <div id="matchList">
-        <Match v-for="match in selected.matchList" :key="match.matchId" :data="match"/>
+        <Match v-for="match in selected.matchList" :key="match.matchId" :data="match" :name="selected.userInfo.name"/>
       </div>
     </div>
   </div>

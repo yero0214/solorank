@@ -6,8 +6,8 @@ import axios from 'axios'
 Vue.use(Vuex)
 
 const uri = 'http://localhost:99/call'
-const yero0214 = 'RGAPI-a1f4fc77-162f-4a97-b683-160fb3f446fe'
-const haga4214 = 'RGAPI-1c0de3e1-635a-4954-882b-b464bbc0741a'
+const yero0214 = 'RGAPI-431d1c01-2509-4c95-a436-7bd90bb368bd'
+const haga4214 = 'RGAPI-a09201f6-7e0f-4898-9986-cca8202e8268'
 
 const func = {
   setCookie (name, value, type, time) {
@@ -200,7 +200,7 @@ export default new Vuex.Store({
           axios
             .get(uri, {
               params: {
-                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=20`,
+                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=5`,
                 token: yero0214
               }
             })
