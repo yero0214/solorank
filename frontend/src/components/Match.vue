@@ -1,5 +1,10 @@
 <template>
-  <div class="match">{{player.championName}}</div>
+  <div class="match">
+    <div>{{duration}}</div>
+    <div>{{player.championName}}</div>
+    <div>{{player.kills}}/{{player.deaths}}/{{player.assists}}</div>
+    <div>{{result}}</div>
+  </div>
 </template>
 
 <script>
@@ -15,12 +20,23 @@ export default {
   computed: {
     player () {
       let result
-      this.data.matchInfo.info.participants.forEach(e => {
-        if (e.summonerName === this.name) {
-          result = e
-        }
-      })
+      if (this.data.matchInfo != null) {
+        this.data.matchInfo.info.participants.forEach(e => {
+          if (e.summonerName === this.name) {
+            result = e
+          }
+        })
+      }
       return result
+    },
+    result () {
+      if (this.player.win) return 'win'
+      else return 'lose'
+    },
+    duration () {
+      const min = Math.floor(this.data.matchInfo.info.gameDuration / 60000)
+      const sec = Math.floor((this.data.matchInfo.info.gameDuration % 60000) / 1000)
+      return min + ':' + sec
     }
   },
   methods: {

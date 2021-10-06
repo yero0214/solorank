@@ -19,7 +19,7 @@ const func = {
     } else if (type === 'max') {
       todayDate.setTime(todayDate.getTime + 365 * 24 * 60 * 60 * 1000)
     }
-    document.cookie = name.toUpperCase() + '=' + escape(value.toUpperCase()) + '; path=/; expires=' + todayDate.toGMTString() + ';'
+    document.cookie = name.toUpperCase() + '=' + value + '; path=/; expires=' + todayDate.toGMTString() + ';'
   },
   getCookie (name) {
     var search = name + '='
@@ -53,8 +53,7 @@ export default new Vuex.Store({
   },
   mutations: {
     setSaved (state) {
-      const list = func.getCookie('saved').split('/')
-      console.log(list)
+      const list = func.getCookie('SAVED').split('/')
       list.forEach(e => {
         if (e !== '') {
           state.userList.push({
@@ -153,7 +152,7 @@ export default new Vuex.Store({
         return
       }
       dispatch('getUserInfo', name)
-      func.setCookie(name, name, 'seconds', 30)
+      func.setCookie(name, name.toUpperCase(), 'seconds', 30)
     },
     getUserInfo ({ commit, state }, name) {
       axios

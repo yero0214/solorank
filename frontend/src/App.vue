@@ -17,7 +17,7 @@ ul {
     list-style-type: none;
 }
 body {
-  background-color: rgb(247, 247, 247);
+  background-color: rgb(250, 250, 250);
 }
 #search {
   position: fixed;
@@ -29,6 +29,9 @@ body {
 #info {
   position: fixed;
   top: 100px;
+  width: 200px;
+  height: 250px;
+  background-color: rgb(255, 255, 255);
 }
 #content {
   position: relative;
