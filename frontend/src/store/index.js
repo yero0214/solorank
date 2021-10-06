@@ -199,7 +199,7 @@ export default new Vuex.Store({
           axios
             .get(uri, {
               params: {
-                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=5`,
+                uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=20`,
                 token: yero0214
               }
             })

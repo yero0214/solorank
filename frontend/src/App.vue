@@ -13,6 +13,9 @@ export default {
 </script>
 
 <style>
+[v-clock] {
+  display: none;
+}
 ul {
     list-style-type: none;
 }
@@ -29,6 +32,13 @@ body {
 #info {
   position: fixed;
   top: 100px;
+  width: 200px;
+  height: 250px;
+  background-color: rgb(255, 255, 255);
+}
+#summary {
+  position: fixed;
+  top: 370px;
   width: 200px;
   height: 250px;
   background-color: rgb(255, 255, 255);

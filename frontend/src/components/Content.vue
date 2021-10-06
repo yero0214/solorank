@@ -18,6 +18,9 @@
           <div>losses: {{flex.losses}}</div>
         </div>
       </div>
+      <div id="summary">
+        hi
+      </div>
       <div id="matchList">
         <Match v-for="match in selected.matchList" :key="match.matchId" :data="match" :name="selected.userInfo.name"/>
       </div>
