@@ -5,9 +5,9 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-const uri = 'http://localhost:99/call'
-const yero0214 = 'RGAPI-881be07d-b030-4571-a7ac-759f97b1557a'
-const haga4214 = 'RGAPI-e866171a-6e5a-48af-857e-5347f822f45c'
+const uri = 'https://dvhphnhn8e.execute-api.ap-northeast-2.amazonaws.com/default/riot-proxy'
+const yero0214 = 'RGAPI-1465a4ed-91ea-465f-a929-7750e7800af5'
+const haga4214 = 'RGAPI-28c1cd39-e7ab-4da2-b2e1-16f93f8d9fbb'
 
 const func = {
   setCookie (name, value, type, time) {
@@ -157,7 +157,7 @@ export default new Vuex.Store({
     getUserInfo ({ commit, state }, name) {
       axios
         .get(uri, {
-          params: {
+          headers: {
             uri: `https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${name}`,
             token: yero0214
           }
@@ -180,7 +180,7 @@ export default new Vuex.Store({
     getTierInfo ({ commit }, payload) {
       axios
         .get(uri, {
-          params: {
+          headers: {
             uri: `https://kr.api.riotgames.com/lol/league/v4/entries/by-summoner/${payload.id}`,
             token: yero0214
           }
@@ -198,7 +198,7 @@ export default new Vuex.Store({
           e.matchList = []
           axios
             .get(uri, {
-              params: {
+              headers: {
                 uri: `https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/${e.userInfo.puuid}/ids?type=ranked&start=0&count=20`,
                 token: yero0214
               }
@@ -220,7 +220,7 @@ export default new Vuex.Store({
     getMatchInfo ({ commit }, payload) {
       axios
         .get(uri, {
-          params: {
+          headers: {
             uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${payload.matchId}`,
             token: haga4214
           }
@@ -235,7 +235,7 @@ export default new Vuex.Store({
     getMatchTimeline ({ commit }, payload) {
       axios
         .get(uri, {
-          params: {
+          headers: {
             uri: `https://asia.api.riotgames.com/lol/match/v5/matches/${payload.matchId}/timeline`,
             token: haga4214
           }
